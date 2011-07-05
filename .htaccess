@@ -1,0 +1,11 @@
+RewriteEngine On
+<Files .*>
+	Order Deny,Allow
+	Deny From All
+</Files>
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+## only allow access to index.php and resources folder through the web
+RewriteCond $1 !^(css|js|index\.php)
+RewriteRule .* index.php/$0 [PT]
