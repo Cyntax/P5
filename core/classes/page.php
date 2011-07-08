@@ -9,7 +9,7 @@
 
 	class Page extends P5_Page {
 
-		// overridden load_file method, adds webpage header and footer before and after content respectively
+		// overridden display method, adds webpage header and footer before and after content respectively
 		// shows a simple usage of the Page::factory() method to load more than one page at a time and use them
 		
 		public function display() {

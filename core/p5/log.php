@@ -12,9 +12,9 @@
 	
 	class P5_Log {
 
-		const ERROR = 1;
-		const INFO = 2;
-		const DEBUG = 4;
+		const ERROR	= 1;
+		const INFO	= 2;
+		const DEBUG	= 4;
 
 		protected static $log_level;
 
@@ -25,27 +25,32 @@
 		function __destruct() {
 		}
 		
-		// you cna override this method in your Log class and perhaps write the log to a different directory
+		// you can override this method in your Log class and perhaps write the log to a different directory
 		protected static function add( $message ) {
 			error_log( $message );
 		}
 		
+		// by default if you init log without any parameters, it will show errors only
+		// see App::init() method for details
 		public static function init( $level = Log::ERROR ) {
 			self::$log_level = $level;
 			Log::debug( 'Log class initialized' );
 		}
 		
 		public static function error( $message ) {
+			// are we supposed to log errors?
 			if ( self::$log_level & self::ERROR )
 				self::add( 'error: ' . $message );
 		}
 		
 		public static function info( $message ) {
+			// are we supposed to log informational messages?
 			if ( self::$log_level & self::INFO )
 				self::add( 'info: ' . $message );
 		}
 		
 		public static function debug( $message ) {
+			// are we supposed to log debug messages?
 			if ( self::$log_level & self::DEBUG )
 				self::add( 'debug: ' . $message );
 		}

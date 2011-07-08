@@ -11,7 +11,7 @@
 	// this is one of the only two require calls you will see in the whole application 
 	require( 'core/classes/app.php' );
 	
-	// initialize the application class (see the class method and modify it to suit your needs)
+	// initialize the application class (modify the class method to suit your needs)
 	App::init();
 	
 	// find out the relative url that is requested from index.php ( e.g. /, /about/ etc. )
@@ -24,18 +24,21 @@
 		
 		// if the requested page does not exist, instead of breaking up, just show a nice 404 page.
 		// remember that the url is a valid one, but we just don't have implemented it!
-		if ( $PAGE === NULL || !$PAGE->is_loaded() )
+		if ( $PAGE === NULL || !$PAGE->is_loaded() ) {
+			Log::info( 'Page 404: ' . $URL );
 			$PAGE = Page::factory( '404' );
+		}
 	} catch( Exception $e ) {
-		// most probably someone or something tried to access a url that with illegal characters
+		// access to a url with illegal characters
 		// let's load a simple page to show another kind of error to the user
 		Log::error( 'invalid url accessed: ' . $URL );
 		$PAGE = Page::factory( 'invalid' );
 	}
+	
+	// display the page contents
 	$PAGE->display();
 	
-	
-	// cleanup, unload resources
+	// unload resources if required (you can modify the cleanup method in your application class)
 	App::cleanup();
 	
 ?>

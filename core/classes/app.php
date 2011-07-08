@@ -31,6 +31,7 @@
 	
 			// initialize the log class. If not initialized, nothing will be logged
 			// we enable all errors to see how the log file fills up :)
+			// also see your php.ini file config directives for 'error_log' and 'log_errors'
 			Log::init( Log::ERROR | Log::INFO | Log::DEBUG );
 		}
 		

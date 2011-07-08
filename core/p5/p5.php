@@ -2,7 +2,7 @@
 
 	/* name:				p5.php
 	 * path:				/core/p5/p5.php
-	 * description:	Core P5 application class. Provides base functionality for the main application class
+	 * description:	Core P5 application class. Provides base functionality for the main application
 	 * package:			P5 Framework
 	 * Author(s):		Cyntax Technologies Development Team
 	 * License:			Cyntax Open Technology License (http://code.cyntaxtech.com/licenses/cyntax-open-technology)
@@ -10,6 +10,7 @@
 	
 	class P5 {
 
+		// try to keep all initialization in the init() method, as the class has static methods only
 		function __construct() {
 		}
 		
@@ -22,17 +23,17 @@
 			// in your App class implementaion without changing this core class
 			spl_autoload_register( 'App::_loader' ); 
 			
-			// just a little something to help us know about the application status
+			// tell php to call one of our function at the very end of execution
 			register_shutdown_function( 'App::_exit' );
 		}
 		
+		// you can close database connections in this function etc. 
 		public static function cleanup() {
 		}
 		
-		// although public, the following function should never be called from your code
+		// the following function should never be directly called from your code
 		// the underscore at the beginning of function 'emphasizes' this logic
-		public static function _loader( $class_name ) {
-			
+		protected static function _loader( $class_name ) {
 			// the following is a simple (though a bit crude ) logic to find class files
 			// you are encouraged to override and improve this function in your 'App' class
 			$underscore = strpos( $class_name, '_' );
@@ -52,18 +53,22 @@
 			} else
 				include ( 'core/classes/' . strtolower( $class_name ) . '.php' );
 		}
-		
-		// this function is probably useless. Mainly because when it's called, the request is already
-		// over. You cannot send any output to client, so might as well just log something :P
+
+		// function called at the very end of the execution of the webpage		
 		public static function _exit() {
 			Log::debug('Execution complete');
 		}
 		
-		public function current_url() {
-			// another common mistake you would do is to simply return $_SERVER['PATH_INFO']
-			// just remember if you know something is guaranteed to be there, you check whether it exists
-			// and then use it!
+		public static function current_url() {
+			// a common mistake by beginners is to simply return $_SERVER['PATH_INFO']
+			// just remember if you know something is not guaranteed to be there,
+			// you check whether it exists and then use it!
 			return isset( $_SERVER['PATH_INFO'] ) ? $_SERVER['PATH_INFO'] : '/';
+		}
+		
+		// utility function to get server variables (avoids isset checks in the application)
+		public static function server( $variable, $default = '') {
+			return isset( $_SERVER[$variable] ) ? $_SERVER[$variable] : $default;
 		}
 		
 	}

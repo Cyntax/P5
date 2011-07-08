@@ -16,6 +16,16 @@
 		function __destruct() {
 		}
 
+		// safe wrapper to get variables from user input (get array)
+		public function get( $key, $default ) {
+			return isset( $_GET[$key] ) ? $_GET[$key] : $default;
+		}
+		
+		// safe wrapper to get variables from user input (post array)
+		public function post( $key, $default ) {
+			return isset( $_POST[$key] ) ? $_POST[$key] : $default;
+		}
+
 	}
 
 ?>

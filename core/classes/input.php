@@ -17,14 +17,6 @@
 		{
 		}
 		
-		public function get( $key, $default ) {
-			return isset( $_GET[$key] ) ? $_GET[$key] : $default;
-		}
-		
-		public function post( $key, $default ) {
-			return isset( $_POST[$key] ) ? $_POST[$key] : $default;
-		}
-		
 	}
 
 ?>

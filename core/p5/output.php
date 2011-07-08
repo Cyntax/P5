@@ -15,11 +15,13 @@
 		
 		function __destruct() {
 		}
-		
+
+		// enable / disable display of errors on screen		
 		public static function errors( $enable = TRUE ) {
 			ini_set( 'display_errors', $enable ? 'on' : 'off' );
 		}
-		
+
+		// if you don't know about buffering yet, now is a good time to find out		
 		public static function buffer( $enable = TRUE ) {
 			if ( $enable )
 				ob_start();
@@ -27,13 +29,17 @@
 				ob_implicit_flush( TRUE );
 		}
 		
+		// left as an exercise for you to add code to this function (if you need to use it, that is)
 		public static function compress( $enable = TRUE ) {
 		}
 		
-		public static function header( $name, $value ) {
-			header( $name . ': '. $value );
+		public static function header( $name, $value = NULL ) {
+			// if value is NULL, it means the first parameter is the complete header definition
+			// otherwise, we will concat the name and value to create the header definition
+			header( $value === NULL ? $name : ($name . ': '. $value) );
 		}
-		
+
+		// flush the output buffer		
 		public static function flush() {
 			ob_end_flush();
 		}

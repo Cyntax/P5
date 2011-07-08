@@ -15,7 +15,7 @@
 	 */
 	class P5_Page {
 
-		// most beginners would write the following as ( var $is_valid; ) after copying from somewhere
+		// most beginners would write the following as ( var $folder; ) after copying from somewhere
 		// keeping grip on the variable scope gives your class robustness, so make a habit of doing that everytime
 		protected static $folder = 'core/pages';		// static variables are initialized only once!
 		protected $is_valid;			// becomes true if the page gets loaded, false otherwise
@@ -36,9 +36,11 @@
 		function  __destruct() {
 		}
 		
+		// use this function as many times as you want to create page objects
 		public static function factory( $path ) {
 			// let's try and find out if the path has invalid characters. This is a common mistake by developers
 			// which allows inclusion of unwanted files and display them to the user, causing security holes
+			// if the url is invalid, exception is thrown, which keeps our code in this function cleaner
 			$path = self::validate_path( $path ); 
 			
 			$full_path = self::$folder . $path . '.php';
@@ -47,6 +49,8 @@
 			
 			// the magic here is that the class can use it's own constructor, while external code cannot!
 			$page = new Page();
+			
+			// leave the task of loading the content to the object itself 
 			$page->load_file( $full_path );
 			
 			// return our brand new shiny object to the caller proudly
@@ -73,7 +77,8 @@
 		// note here that this function is not called until the path is verified and it exists
 		// which is why the function does not return true or false
 		protected function load_file( $full_path ) {
-			// ob_start is a multilevel buffering function
+			
+			// ob_start is a multilevel buffering function (see the php manual for more info)
 			ob_start();
 			
 			include( $full_path );

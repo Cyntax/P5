@@ -1,4 +1,4 @@
-# P5
+# P5 Framework
 
 A framework for PHP5 beginners
 
@@ -21,13 +21,12 @@ Basically, you can use it in whatever way you like.
 
 The Github source repository is [here](http://github.com/Cyntax/P5/)
 
-## Missing Features / Disadvantages
+## Non-Features / Missing Stuff
 
-* NOT recommended for production use (only for learning)
+* NOT recommended for production use in it's original state (only for learning)
 * Database classes / modules
 * Complete documentation (the source code is pretty self explanatory. READ IT)
 * Benchmark with other frameworks out there to prove it's the fastest :)
-* 
 
 ## Requirements
 
